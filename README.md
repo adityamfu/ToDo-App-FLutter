@@ -1,16 +1,27 @@
-# to_do
+# ToDo
 
-A new Flutter project.
+ToDo adalah aplikasi manajemen tugas sederhana dan minimalis yang dikembangkan dengan Flutter. Aplikasi ini memungkinkan Anda untuk menambahkan, mengatur, dan mengelola tugas-tugas harian Anda dengan efisien. Anda dapat menetapkan prioritas, menandai tugas sebagai selesai, dan melihat tugas-tugas Anda yang dikelompokkan berdasarkan kategori.
 
-## Getting Started
+## Fitur
+- Menambahkan tugas baru dengan tingkat prioritas.
+- Menandai tugas sebagai selesai ketika selesai dikerjakan.
+- Melihat tugas-tugas dikelompokkan berdasarkan kategori.
+- Menetapkan waktu mulai dan waktu selesai untuk tugas-tugas Anda.
+- Dukungan mode gelap.
 
-This project is a starting point for a Flutter application.
+## Memulai
+Untuk menjalankan aplikasi di mesin lokal Anda, ikuti langkah-langkah berikut:
 
-A few resources to get you started if this is your first Flutter project:
+1. Pastikan Anda telah menginstal Flutter. Jika belum, Anda dapat mengikuti panduan instalasi dari [situs web Flutter](https://flutter.dev/docs/get-started/install).
+2. Salin repositori ini ke mesin lokal Anda.
+3. Buka proyek di editor kode pilihan Anda (mis. Visual Studio Code).
+4. Sambungkan perangkat Android atau iOS Anda ke komputer atau gunakan emulator.
+5. Jalankan aplikasi menggunakan perintah `flutter run` di terminal.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Berkontribusi
+Kami menyambut kontribusi dari komunitas. Jika Anda menemukan masalah atau memiliki saran untuk perbaikan, silakan buka _issue_ atau kirimkan _pull request_.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Lisensi
+null
+
+Selamat mengelola tugas dengan Aplikasi Todo!
