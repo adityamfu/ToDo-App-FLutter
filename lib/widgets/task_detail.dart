@@ -21,6 +21,7 @@ class TaskDetailDialog extends StatelessWidget {
           SizedBox(height: 8.0),
           Text(
               'Created At: ${DateFormat('EEEE, dd MMMM yyyy, HH:mm:ss').format(todoTask.createdAt)}'),
+              Text('Description: ${todoTask.description}'),
         ],
       ),
       actions: [

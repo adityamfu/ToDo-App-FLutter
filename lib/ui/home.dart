@@ -3,7 +3,6 @@ import 'package:to_do/ui/todo_screen.dart';
 import 'package:to_do/ui/daily_screen.dart';
 import '../widgets/sidebar.dart';
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -13,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedScreenIndex = 0;
-  List<String> _screenTitles = ["Todo List", "Daily Tasks"];
+  List<String> _screenTitles = ["ToDo", "DaiLy"];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -24,10 +23,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(_screenTitles[_selectedScreenIndex]),
-        leading: Icon(Icons.account_tree_rounded),
+        centerTitle: true,
+        toolbarHeight: 70,
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          _screenTitles[_selectedScreenIndex],
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+            fontFamily: 'Monomaniac One',
+            fontSize: 40,
+          ),
+        ),
+        leading: Icon(
+          Icons.account_tree_rounded,
+          size: 30,
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
       body: GestureDetector(
         onHorizontalDragUpdate: (details) {
@@ -49,6 +63,8 @@ class _HomeState extends State<Home> {
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
+      selectedItemColor: const Color(0xff6200ee),
+      unselectedItemColor: const Color(0xff757575),
       currentIndex: _selectedScreenIndex,
       onTap: (index) {
         setState(() {
@@ -58,11 +74,11 @@ class _HomeState extends State<Home> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Todo List',
+          label: 'ToDo',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
-          label: 'Daily Tasks',
+          label: 'DaiLy',
         ),
       ],
     );

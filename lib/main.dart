@@ -8,7 +8,7 @@ import 'ui/home.dart';
 void main() async {
   await GetStorage.init();
   Get.put(ThemeService());
-   runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

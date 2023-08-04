@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../services/theme_service.dart';
 import '../ui/todo_screen.dart';
@@ -7,6 +8,7 @@ class CSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.background,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -42,11 +44,24 @@ class CSidebar extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: Icon(Icons.texture_sharp),
+            title: Text('Test Widget'),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DailyTaskScreen(),
+                ),
+              );
+            },
+          ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.lightbulb_outline),
+            leading: Icon(Icons.dark_mode_outlined),
             title: Text('Dark Mode'),
-            trailing: Switch(
+            trailing: CupertinoSwitch(
               value: ThemeService().isDarkMode,
               onChanged: (value) {
                 ThemeService().switchTheme();

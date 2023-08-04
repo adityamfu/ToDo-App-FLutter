@@ -14,7 +14,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
   String selectedCategory = 'All'; // Default selected category is 'All.'
 
   void addTask(String taskName, TaskPriority priority, DateTime createdAt,
-      DateTime startTime, DateTime endTime) {
+      DateTime startTime, DateTime endTime, String taskDescription) {
     setState(() {
       TodoTask newTask = TodoTask(
         name: taskName,
@@ -24,6 +24,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
         completedAt: createdAt,
         startTime: startTime,
         endTime: endTime,
+        description: taskDescription,
       );
       tasks.add(newTask);
       tasks.sort((a, b) => b.priority.index.compareTo(a.priority.index));
@@ -34,6 +35,11 @@ class _TodoListScreenState extends State<TodoListScreen> {
   void showAddTaskBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(40.0),
+        ),
+      ),
       builder: (BuildContext context) {
         return AddTaskBottomSheet(addTask);
       },
@@ -99,6 +105,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Content(
         selectedCategory: selectedCategory,
         tasks: tasks,
@@ -114,6 +121,10 @@ class _TodoListScreenState extends State<TodoListScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(17),
+        ),
+        backgroundColor: Color(0XFFE67E22),
         onPressed: () {
           showAddTaskBottomSheet(context);
         },
