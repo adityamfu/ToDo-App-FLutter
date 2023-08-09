@@ -1,63 +1,69 @@
-// import 'dart:async';
-// import 'package:sqflite/sqflite.dart';
-// import 'package:path/path.dart';
-// import 'package:to_do/models/task_repo.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
-// class DatabaseHelper {
-//   static final DatabaseHelper _instance = DatabaseHelper._internal();
+class DatabaseHelper {
+  // Singleton pattern to ensure only one instance of DatabaseHelper is created.
+  DatabaseHelper._privateConstructor();
+  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
-//   factory DatabaseHelper() => _instance;
+  // A reference to the database.
+  Database? _database;
 
-//   DatabaseHelper._internal();
+  // Get a reference to the database (open it if it doesn't exist).
+  Future<Database> get database async {
+    if (_database != null) {
+      return _database!;
+    }
 
-//   Database? _database;
+    // If _database is null, initialize it.
+    _database = await initDatabase();
+    return _database!;
+  }
 
-//   Future<Database?> get database async {
-//     if (_database != null) return _database;
-//     _database = await initDatabase();
-//     return _database;
-//   }
+  // Initialize the database.
+  Future<Database> initDatabase() async {
+    final path = join(await getDatabasesPath(), 'todo.db');
+    _database = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) {
+        return db.execute('''
+          CREATE TABLE tasks(
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            priority TEXT,
+            category TEXT,
+            isDone INTEGER,
+            createdAt INTEGER,
+            completedAt INTEGER,
+            startTime INTEGER,
+            endTime INTEGER,
+            description TEXT
+          )
+        ''');
+      },
+    );
+    return _database!;
+  }
 
-//   Future<Database> initDatabase() async {
-//     final databasesPath = await getDatabasesPath();
-//     final path = join(databasesPath, 'tasks.db');
-//     return await openDatabase(
-//       path,
-//       version: 1,
-//       onCreate: (Database db, int version) async {
-//         await db.execute('''
-//           CREATE TABLE tasks (
-//             id INTEGER PRIMARY KEY,
-//             name TEXT NOT NULL,
-//             priority TEXT NOT NULL,
-//             category TEXT NOT NULL,
-//             isDone INTEGER NOT NULL,
-//             createdAt TEXT NOT NULL,
-//             completedAt TEXT NOT NULL,
-//             startTime TEXT NOT NULL,
-//             endTime TEXT NOT NULL,
-//             isReminderOn INTEGER NOT NULL,
-//             reminderTime TEXT
-//           )
-//         ''');
-//       },
-//     );
-//   }
+  // Insert a task into the database.
+  Future<void> insertTask(Map<String, dynamic> row) async {
+    final db = await instance.database;
+    await db.insert('tasks', row);
+  }
 
-//   Future<void> insertTask(TodoTask task) async {
-//     final db = await database;
-//     await db!.insert(
-//       'tasks',
-//       task.toMap(),
-//       conflictAlgorithm: ConflictAlgorithm.replace,
-//     );
-//   }
+  // Query all rows in the tasks table.
+  Future<List<Map<String, dynamic>>> queryAllRows() async {
+    final db = await instance.database;
+    return await db.query('tasks');
+  }
 
-//   Future<List<TodoTask>> getTasks() async {
-//     final db = await database;
-//     final List<Map<String, dynamic>> maps = await db!.query('tasks');
-//     return List.generate(maps.length, (index) {
-//       return TodoTask.fromMap(maps[index]);
-//     });
-//   }
-// }
+  Future<void> deleteTask(int id) async {
+    final db = await instance.database;
+    await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Other methods to manipulate the database can be added here.
+
+  // ...
+}

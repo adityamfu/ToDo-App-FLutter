@@ -35,7 +35,11 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.1.1
   intl: ^0.18.1
+  mysql1: ^0.20.0
+  provider: ^6.0.5
+  shared_preferences: ^2.2.0
   sqflite: ^2.3.0
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_lints: ^2.0.0

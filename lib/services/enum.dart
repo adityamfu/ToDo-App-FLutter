@@ -40,4 +40,33 @@ class TodoTask {
     this.isReminderOn = false,
     this.reminderTime,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'priority': priority.toString(),
+      'category': category,
+      'isDone': isDone ? 1 : 0,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'completedAt': completedAt.millisecondsSinceEpoch,
+      'startTime': startTime.millisecondsSinceEpoch,
+      'endTime': endTime.millisecondsSinceEpoch,
+      'description': description,
+    };
+  }
+
+  factory TodoTask.fromMap(Map<String, dynamic> map) {
+    return TodoTask(
+      name: map['name'],
+      priority: TaskPriority.values
+          .firstWhere((priority) => priority.toString() == map['priority']),
+      category: map['category'],
+      isDone: map['isDone'] == 1,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      completedAt: DateTime.fromMillisecondsSinceEpoch(map['completedAt']),
+      startTime: DateTime.fromMillisecondsSinceEpoch(map['startTime']),
+      endTime: DateTime.fromMillisecondsSinceEpoch(map['endTime']),
+      description: map['description'],
+    );
+  }
 }

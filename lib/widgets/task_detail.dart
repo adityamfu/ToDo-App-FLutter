@@ -10,18 +10,35 @@ class TaskDetailDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(todoTask.name),
+      title: Text(
+        todoTask.name,
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Priority: ${todoTask.priority}'),
-          SizedBox(height: 12.0),
-          Text('Category: ${todoTask.category}'),
-          SizedBox(height: 8.0),
+          Container(
+            padding: EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: _getPriorityColor(todoTask.priority),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Text(
+              'Priority: ${todoTask.priority}',
+            ),
+          ),
           Text(
-              'Created At: ${DateFormat('EEEE, dd MMMM yyyy, HH:mm:ss').format(todoTask.createdAt)}'),
-              Text('Description: ${todoTask.description}'),
+            'Category: ${todoTask.category}',
+          ),
+          SizedBox(height: 8.0),
+          Text('Description: \n${todoTask.description}'),
+          SizedBox(height: 12.0),
+          Text(
+              'Created At: \n${DateFormat('EEEE, dd MMMM yyyy, HH:mm:ss').format(todoTask.createdAt)}'),
         ],
       ),
       actions: [
@@ -42,7 +59,19 @@ class TaskDetailDialog extends StatelessWidget {
   }
 }
 
+Color _getPriorityColor(TaskPriority priority) {
+  if (priority == TaskPriority.High) {
+    return Colors.red;
+  } else if (priority == TaskPriority.Medium) {
+    return Colors.yellow;
+  } else {
+    return Colors.blue;
+  }
+}
 
+String _getPriorityInitial(TaskPriority priority) {
+  return priority.toString().substring(0, 1);
+}
 // class TaskDetailModal extends StatelessWidget {
 //   final TodoTask todoTask;
 

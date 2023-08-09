@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/services/enum.dart';
 import 'package:to_do/widgets/todo_list_content.dart';
+import '../models/database_helper.dart';
 import '../widgets/bottomseed.dart';
 import '../widgets/task_detail.dart';
 
@@ -10,27 +11,72 @@ class TodoListScreen extends StatefulWidget {
 }
 
 class _TodoListScreenState extends State<TodoListScreen> {
+  late final DatabaseHelper _dbHelper;
   List<TodoTask> tasks = [];
   String selectedCategory = 'All'; // Default selected category is 'All.'
 
+  @override
+  void initState() {
+    super.initState();
+    _dbHelper = DatabaseHelper.instance;
+
+    _loadTasks();
+  }
+
+  void _loadTasks() async {
+    List<Map<String, dynamic>> rows = await _dbHelper.queryAllRows();
+    tasks = rows.map((row) => TodoTask.fromMap(row)).toList();
+
+    setState(() {});
+  }
+
   void addTask(String taskName, TaskPriority priority, DateTime createdAt,
-      DateTime startTime, DateTime endTime, String taskDescription) {
-    setState(() {
-      TodoTask newTask = TodoTask(
-        name: taskName,
-        priority: priority,
-        category: selectedCategory,
-        createdAt: createdAt,
-        completedAt: createdAt,
-        startTime: startTime,
-        endTime: endTime,
-        description: taskDescription,
-      );
-      tasks.add(newTask);
-      tasks.sort((a, b) => b.priority.index.compareTo(a.priority.index));
-    });
+      DateTime startTime, DateTime endTime, String taskDescription) async {
+    TodoTask newTask = TodoTask(
+      name: taskName,
+      priority: priority,
+      category: selectedCategory,
+      createdAt: createdAt,
+      completedAt: createdAt,
+      startTime: startTime,
+      endTime: endTime,
+      description: taskDescription,
+    );
+
+    await _dbHelper.insertTask(newTask.toMap());
+    _loadTasks();
+    tasks.add(newTask);
+    tasks.sort((a, b) => b.priority.index.compareTo(a.priority.index));
+
     Navigator.pop(context);
   }
+
+  void deleteTask(int index) async {
+    // int taskId = tasks[index].hashCode; // Assume tasks have an 'id' property
+    // await _dbHelper.deleteTask(taskId);
+    setState(() {
+      tasks.removeAt(index);
+    });
+  }
+
+  // void addTask(String taskName, TaskPriority priority, DateTime createdAt,
+  //     DateTime startTime, DateTime endTime, String taskDescription) {
+  //   setState(() {
+  //     TodoTask newTask = TodoTask(
+  //       name: taskName,
+  //       priority: priority,
+  //       category: selectedCategory,
+  //       createdAt: createdAt,
+  //       completedAt: createdAt,
+  //       startTime: startTime,
+  //       endTime: endTime,
+  //       description: taskDescription,
+  //     );
+  //     tasks.add(newTask);
+  //     tasks.sort((a, b) => b.priority.index.compareTo(a.priority.index));
+  //   });
+  //   Navigator.pop(context);
+  // }
 
   void showAddTaskBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -86,12 +132,6 @@ class _TodoListScreenState extends State<TodoListScreen> {
         );
       },
     );
-  }
-
-  void deleteTask(int index) {
-    setState(() {
-      tasks.removeAt(index);
-    });
   }
 
   List<TodoTask> _filteredTasks() {
