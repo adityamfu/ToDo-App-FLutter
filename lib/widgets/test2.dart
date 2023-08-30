@@ -244,6 +244,15 @@ class _DateScreenState extends State<DateScreen> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Color(0x716565)
+                                                              .withOpacity(0.6),
+                                                          offset: Offset(0, 4),
+                                                          blurRadius: 7,
+                                                          spreadRadius: -2,
+                                                        )
+                                                      ],
                                                     ),
                                                     child: Text(
                                                       lesson.time,
@@ -372,6 +381,15 @@ class _DateScreenState extends State<DateScreen> {
                                     decoration: BoxDecoration(
                                       color: Color(0xffFAFF00),
                                       borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Color(0x716565).withOpacity(0.6),
+                                          offset: Offset(0, 4),
+                                          blurRadius: 7,
+                                          spreadRadius: -2,
+                                        )
+                                      ],
                                     ),
                                     child: Text(
                                       'Online',
@@ -379,11 +397,23 @@ class _DateScreenState extends State<DateScreen> {
                                           TextStyle(color: Color(0xff262A32)),
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
                                   Container(
                                     padding: EdgeInsets.all(4),
                                     decoration: BoxDecoration(
                                       color: Color(0xff262A32),
                                       borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Color(0x716565).withOpacity(0.6),
+                                          offset: Offset(0, 4),
+                                          blurRadius: 7,
+                                          spreadRadius: -2,
+                                        )
+                                      ],
                                     ),
                                     child: Text(
                                       'Offline',
@@ -406,7 +436,7 @@ class _DateScreenState extends State<DateScreen> {
                                 return Text('Error: ${snapshot.error}');
                               } else if (!snapshot.hasData ||
                                   snapshot.data!.isEmpty) {
-                                return Text('Tidak ada jadwal');
+                                return Text('Kosong');
                               } else {
                                 List<Lesson> lessonList = snapshot.data!;
                                 return Column(
@@ -428,6 +458,15 @@ class _DateScreenState extends State<DateScreen> {
                                             color: timeColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0x716565)
+                                                    .withOpacity(0.6),
+                                                offset: Offset(0, 4),
+                                                blurRadius: 7,
+                                                spreadRadius: -2,
+                                              )
+                                            ],
                                           ),
                                           child: Text(
                                             lesson.time,
@@ -438,6 +477,7 @@ class _DateScreenState extends State<DateScreen> {
                                             ),
                                           ),
                                         ),
+                                        SizedBox(height: 5),
                                       ],
                                     );
                                   }).toList(),

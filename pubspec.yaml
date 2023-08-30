@@ -31,7 +31,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  flutter_slidable: ^3.0.0
   get: ^4.6.5
   get_storage: ^2.1.1
   intl: ^0.18.1
@@ -39,7 +38,7 @@ dependencies:
   provider: ^6.0.5
   shared_preferences: ^2.2.0
   sqflite: ^2.3.0
-  table_calendar: ^3.0.9
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0

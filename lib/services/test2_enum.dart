@@ -1,10 +1,10 @@
 class Lesson {
   int? id;
-  final String day;
-  final String time;
-  final String course;
+  String day;
+  String time;
+  String course;
   String room;
-  final int sks;
+  int sks;
 
   Lesson({
     this.id,

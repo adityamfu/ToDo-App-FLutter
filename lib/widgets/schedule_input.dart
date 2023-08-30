@@ -263,16 +263,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   itemCount: courses.length,
                   itemBuilder: (context, index) {
                     Course course = courses[index];
-                    // final weekdayName = weekdayToString(course.weekday);
-                    int daysDiff = endDate.difference(startDate).inDays;
 
-                    int totalWeeks = (daysDiff / 7).ceil();
                     int weekNumber = (index / 7).floor() + 1;
-
-                    DateTime courseDate = startDate.add(
-                        Duration(days: (weekNumber - 1) * 7 + (index % 7)));
-
-                    String dayName = DateFormat('EEEE').format(courseDate);
 
                     return ListTile(
                       title: Text(course.courseName),

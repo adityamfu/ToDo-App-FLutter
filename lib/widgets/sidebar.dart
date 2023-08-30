@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:to_do/widgets/schedule_input.dart';
+import 'package:url_launcher/link.dart';
 import '../services/theme_service.dart';
 import '../ui/daily_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CSidebar extends StatelessWidget {
-  DateTime selectedDate = DateTime.now();
+  final DateTime selectedDate = DateTime.now();
+  // final Uri _url = Uri.parse('https://flutter.dev');
+
+  Future<void> _launchUrl(String url) async {
+    final Uri uri = Uri(scheme: "https", host: url);
+    if (!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch url');
+    }
+  }
+  // Future<void> _launchUrl(String url) async {
+  //   final Uri uri = Uri(scheme: "https", host: url);
+  //   if (!await canLaunch(uri.toString())) {
+  //     throw Exception('Could not launch URL');
+  //   }
+  //   await launch(uri.toString(), forceSafariVC: false, forceWebView: false);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -137,16 +158,29 @@ class CSidebar extends StatelessWidget {
               );
             },
           ),
+          Container(
+            child: Center(
+              child: Link(
+                  target: LinkTarget.blank,
+                  uri: Uri.parse('https://flutter.dev'),
+                  builder: (context, followLink) => ElevatedButton(
+                      onPressed: followLink, child: Text('Open Link'))),
+            ),
+          ),
           ListTile(
             leading: Icon(Icons.date_range),
             title: Text('Lesson'),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DailyTaskScreen(),
-                ),
-              );
+            onTap: () async {
+              try {
+                await _launchUrl(
+                    'www.lipsum.com'); // Replace with your actual URL
+              } catch (e) {
+                print('Error: $e');
+              }
             },
+            // onTap: () {
+            //   _launchUrl('www.lipsum.com');
+            // },
           ),
           Divider(),
           ListTile(

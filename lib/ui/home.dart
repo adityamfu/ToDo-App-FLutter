@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/ui/todo_screen.dart';
-import 'package:to_do/ui/daily_screen.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/test2.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/test2_db.dart';
 import '../services/test2_enum.dart';
 
@@ -14,6 +15,19 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
   String room = '';
   int sks = 1;
   List<Lesson> lessonList = [];
+  TimeOfDay _parseTimeOfDay(String timeString) {
+    final parts = timeString.split(':');
+    final hour = int.parse(parts[0]);
+    final minute = int.parse(parts[1].split(' ')[0]);
+    return TimeOfDay(hour: hour, minute: minute);
+  }
+
+  String _formatTimeOfDay(TimeOfDay timeOfDay) {
+    final period = timeOfDay.hour >= 12 ? 'PM' : 'AM';
+    final hour = timeOfDay.hourOfPeriod.toString().padLeft(2, '0');
+    final minute = timeOfDay.minute.toString().padLeft(2, '0');
+    return '$hour:$minute $period';
+  }
 
   final TextEditingController courseController = TextEditingController();
   final TextEditingController roomController = TextEditingController();
@@ -112,43 +126,6 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
             ),
             SizedBox(height: 16),
             Text('Lesson Data :'),
-            // FutureBuilder<List<Lesson>>(
-            //   future: _getLessonListFromDatabase(),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.connectionState == ConnectionState.waiting) {
-            //       return CircularProgressIndicator();
-            //     } else if (snapshot.hasError) {
-            //       return Text('Error: ${snapshot.error}');
-            //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            //       return Text('Belum ada data.');
-            //     } else {
-            //       return ListView.builder(
-            //         shrinkWrap: true,
-            //         itemCount: snapshot.data!.length,
-            //         itemBuilder: (context, index) {
-            //           return ListTile(
-            //             // title: Text(
-            //             //   '${snapshot.data![index].day}, ${snapshot.data![index].time} - ${snapshot.data![index].course}',
-            //             // ),
-            //             title: Text(
-            //               snapshot.data![index].course,
-            //             ),
-            //             subtitle: Text(
-            //               '${snapshot.data![index].day}, ${snapshot.data![index].time}',
-            //             ),
-
-            //             trailing: IconButton(
-            //               icon: Icon(Icons.delete),
-            //               onPressed: () {
-            //                 _deleteLesson(index, context);
-            //               },
-            //             ),
-            //           );
-            //         },
-            //       );
-            //     }
-            //   },
-            // ),
             FutureBuilder<List<Lesson>>(
               future: _getLessonListFromDatabase(),
               builder: (context, snapshot) {
@@ -170,11 +147,22 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                       return ListTile(
                         title: Text(lesson.course),
                         subtitle: Text('${lesson.day}, ${lesson.time}'),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            _deleteLesson(index, context);
-                          },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                _editLesson(lesson, context);
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                _deleteLesson(index, context);
+                              },
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -182,7 +170,6 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                 }
               },
             ),
-
             SizedBox(height: 16),
             Text('Daftar Data dalam Tabel:'),
             FutureBuilder<List<Lesson>>(
@@ -247,15 +234,6 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
     });
   }
 
-  // void _addLessonToDatabase(Lesson lesson, BuildContext context) async {
-  //   await DatabaseHelperSche.insertLesson(lesson);
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text('Lesson deleted successfully'),
-  //       duration: Duration(seconds: 2),
-  //     ),
-  //   );
-  // }
   Future<void> _addLessonToDatabase(Lesson lesson) async {
     await DatabaseHelperSche.insertLesson(lesson);
     // int id = await DatabaseHelperSche.insertLesson(lesson);
@@ -275,6 +253,100 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
       roomController.clear();
       sksController.clear();
     });
+  }
+
+  void _editLesson(Lesson lesson, BuildContext context) async {
+    final editedLesson = await showDialog<Lesson>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Edit Lesson'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final TimeOfDay? pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: _parseTimeOfDay(lesson.time),
+                  );
+
+                  if (pickedTime != null) {
+                    final formattedTime = _formatTimeOfDay(pickedTime);
+                    lesson.time = formattedTime;
+                  }
+                },
+                child: Text('Edit Time: ${lesson.time}'),
+              ),
+              DropdownButton<String>(
+                value: lesson.day,
+                onChanged: (String? newValue) {
+                  lesson.day = newValue!;
+                },
+                items: <String>[
+                  'Monday',
+                  'Tuesday',
+                  'Wednesday',
+                  'Thursday',
+                  'Friday',
+                  'Saturday',
+                  'Sunday'
+                ].map<DropdownMenuItem<String>>(
+                  (String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  },
+                ).toList(),
+              ),
+              TextField(
+                controller: TextEditingController(text: lesson.course),
+                decoration: InputDecoration(labelText: 'Mata Kuliah'),
+                onChanged: (value) {
+                  lesson.course = value;
+                },
+              ),
+              TextField(
+                controller: TextEditingController(text: lesson.room),
+                decoration: InputDecoration(labelText: 'Ruangan'),
+                onChanged: (value) {
+                  lesson.room = value;
+                },
+              ),
+              TextField(
+                controller: TextEditingController(text: lesson.sks.toString()),
+                decoration: InputDecoration(labelText: 'SKS'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  lesson.sks = int.tryParse(value) ?? 1;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(lesson);
+              },
+              child: Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (editedLesson != null) {
+      final db = await DatabaseHelperSche.database;
+      await db.update(
+        'lessons',
+        editedLesson.toMap(),
+        where: 'id = ?',
+        whereArgs: [editedLesson.id],
+      );
+
+      await _loadLessons();
+    }
   }
 
   void _deleteLesson(int index, BuildContext context) async {

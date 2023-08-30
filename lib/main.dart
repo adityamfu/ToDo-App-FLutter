@@ -6,7 +6,6 @@ import 'package:to_do/services/theme_service.dart';
 import 'package:to_do/ui/splash.dart';
 import 'package:to_do/util/theme.dart';
 import 'models/database_helper.dart';
-import 'ui/home.dart';
 
 void main() async {
   await GetStorage.init();
