@@ -16,9 +16,10 @@ class _EditCourseDialogState extends State<EditCourseDialog> {
   TextEditingController sksController = TextEditingController();
   TextEditingController roomController = TextEditingController();
   TextEditingController lecturerController = TextEditingController();
-  Weekday selectedWeekday = Weekday.Monday;
+  // Weekday selectedWeekday = Weekday.Monday;
   List<Course> courses = [];
   int selectedSemester = 1;
+  int selectedWeekday = 1;
   // List<Weekday> selectedWeekdays = [];
 
   @override

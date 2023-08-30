@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:to_do/widgets/test.dart';
-import 'package:to_do/widgets/test2.dart';
+import 'package:to_do/widgets/schedule_input.dart';
 import '../services/theme_service.dart';
-import '../ui/schedule_view.dart';
+import '../ui/daily_screen.dart';
 
 class CSidebar extends StatelessWidget {
+  DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -117,7 +117,7 @@ class CSidebar extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.task_rounded),
-            title: Text('Todo List Screen'),
+            title: Text('Todo   Screen'),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -132,20 +132,18 @@ class CSidebar extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => CourseInputScreen(),
+                  builder: (context) => DailyTaskScreen(),
                 ),
               );
             },
           ),
           ListTile(
-            leading: Icon(Icons.school_rounded),
-            title: Text('Daily Task Screen'),
+            leading: Icon(Icons.date_range),
+            title: Text('Lesson'),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => DailyScreenApp(
-                    coursesFromFirstCode: [],
-                  ),
+                  builder: (context) => DailyTaskScreen(),
                 ),
               );
             },
@@ -163,6 +161,20 @@ class CSidebar extends StatelessWidget {
             onTap: () {
               ThemeService().switchTheme();
             },
+          ), // Untuk menggeser teks ke bagian bawah
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(top: 300),
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                '© 2023 Adityamfu. Indie Develompent.',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+              ),
+            ),
           ),
         ],
       ),

@@ -45,13 +45,14 @@ class _SearchBrState extends State<SearchBr>
                 child: _isActive
                     ? Container(
                         width: double.infinity,
-                        height: 40,
+                        height: 50,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4.0)),
+                            color: Theme.of(context).colorScheme.secondary,
+                            borderRadius: BorderRadius.circular(14)),
                         child: TextField(
                           decoration: InputDecoration(
-                              hintText: 'Search for something',
+                              border: InputBorder.none,
+                              hintText: 'Search...',
                               prefixIcon: const Icon(Icons.search),
                               suffixIcon: IconButton(
                                   onPressed: () {

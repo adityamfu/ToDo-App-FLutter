@@ -1,10 +1,10 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DatabaseHelper {
-  // Singleton pattern to ensure only one instance of DatabaseHelper is created.
-  DatabaseHelper._privateConstructor();
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+class DatabaseHelperTodo {
+  // Singleton pattern to ensure only one instance of DatabaseHelperTodo is created.
+  DatabaseHelperTodo._privateConstructor();
+  static final DatabaseHelperTodo instance = DatabaseHelperTodo._privateConstructor();
 
   // A reference to the database.
   Database? _database;
@@ -57,11 +57,15 @@ class DatabaseHelper {
     final db = await instance.database;
     return await db.query('tasks');
   }
+Future<void> deleteTask(String taskName) async {
+  final db = await instance.database;
+  await db.delete('tasks', where: 'name = ?', whereArgs: [taskName]);
+}
 
-  Future<void> deleteTask(int id) async {
-    final db = await instance.database;
-    await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
-  }
+  // Future<void> deleteTask(int id) async {
+  //   final db = await instance.database;
+  //   await db.delete('tasks', where: 'id = ?', whereArgs: [id]);
+  // }
 
   // Other methods to manipulate the database can be added here.
 

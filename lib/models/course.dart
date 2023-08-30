@@ -4,7 +4,8 @@ class Course {
   String sks;
   String room;
   String lecturer;
-  Weekday weekday;
+  // Weekday weekday;
+  int weekday;
   int semester;
   // List<Weekday> weekdays;
 
@@ -16,21 +17,19 @@ class Course {
     required this.lecturer,
     required this.weekday,
     required this.semester,
-    // required this.weekdays,
   });
   factory Course.fromMap(Map<String, dynamic> map) {
-     Weekday weekday = _weekdayFromString(map['weekday']);
     return Course(
       id: map['id'],
       courseName: map['courseName'],
       sks: map['sks'],
       room: map['room'],
       lecturer: map['lecturer'],
-      weekday: weekday,
+      weekday: map['weekday'],
       semester: map['semester'],
     );
   }
-  
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -42,22 +41,17 @@ class Course {
       'semester': semester,
     };
   }
-  static Weekday _weekdayFromString(String dayString) {
-    return Weekday.values.firstWhere(
-      (weekday) => weekday.toString() == 'Weekday.$dayString',
-    );
-  }
 }
 
-enum Weekday {
-  Monday,
-  Tuesday,
-  Wednesday,
-  Thursday,
-  Friday,
-  Saturday,
-  Sunday,
-}
+// enum Weekday {
+//   Monday,
+//   Tuesday,
+//   Wednesday,
+//   Thursday,
+//   Friday,
+//   Saturday,
+//   Sunday,
+// }
 
 class Semester {
   final int number;

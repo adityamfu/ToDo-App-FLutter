@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:to_do/models/test2_db.dart';
 import 'package:to_do/services/theme_service.dart';
+import 'package:to_do/ui/splash.dart';
 import 'package:to_do/util/theme.dart';
+import 'models/database_helper.dart';
 import 'ui/home.dart';
 
 void main() async {
   await GetStorage.init();
   Get.put(ThemeService());
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelperTodo.instance.initDatabase();
+  await DatabaseHelperSche.database;
   runApp(const MyApp());
 }
 
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeService().theme,
-      home: Home(),
+      home: SplashScreen(),
     );
   }
 }

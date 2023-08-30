@@ -11,14 +11,14 @@ class TodoListScreen extends StatefulWidget {
 }
 
 class _TodoListScreenState extends State<TodoListScreen> {
-  late final DatabaseHelper _dbHelper;
+  late final DatabaseHelperTodo _dbHelper;
   List<TodoTask> tasks = [];
   String selectedCategory = 'All'; // Default selected category is 'All.'
 
   @override
   void initState() {
     super.initState();
-    _dbHelper = DatabaseHelper.instance;
+    _dbHelper = DatabaseHelperTodo.instance;
 
     _loadTasks();
   }
@@ -52,12 +52,23 @@ class _TodoListScreenState extends State<TodoListScreen> {
   }
 
   void deleteTask(int index) async {
-    // int taskId = tasks[index].hashCode; // Assume tasks have an 'id' property
-    // await _dbHelper.deleteTask(taskId);
-    setState(() {
-      tasks.removeAt(index);
-    });
+    if (index >= 0 && index < tasks.length) {
+      String taskName = tasks[index]
+          .name; // Assuming 'name' is the property for the task name
+      await _dbHelper.deleteTask(taskName);
+      setState(() {
+        tasks.removeAt(index);
+      });
+    }
   }
+
+  // void deleteTask(int index) async {
+  //   // int taskId = tasks[index].hashCode; // Assume tasks have an 'id' property
+  //   // await _dbHelper.deleteTask(taskId);
+  //   setState(() {
+  //     tasks.removeAt(index);
+  //   });
+  // }
 
   // void addTask(String taskName, TaskPriority priority, DateTime createdAt,
   //     DateTime startTime, DateTime endTime, String taskDescription) {

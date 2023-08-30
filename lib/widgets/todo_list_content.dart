@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do/widgets/search_bar.dart';
 import '../services/enum.dart';
 import '../util/category.dart';
@@ -54,7 +55,7 @@ class Content extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 340,
+          height: 300,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.tertiary,
             boxShadow: [
@@ -69,7 +70,7 @@ class Content extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.all(6),
+                padding: EdgeInsets.all(4),
                 child: SearchBr(),
               ),
               Container(
@@ -99,20 +100,32 @@ class Content extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Today is :',
+                        'Today is : ',
                         style: TextStyle(
                           color: Color(0XFF262A32),
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        ' Mon, 7 Aug 2023',
-                        style: TextStyle(
-                          color: Color(0XFF262A32),
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
+                      StreamBuilder<DateTime>(
+                        stream: Stream.periodic(
+                            Duration(seconds: 1), (data) => DateTime.now()),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final formattedDate = DateFormat('EEE, d MMM y')
+                                .format(snapshot.data!);
+                            return Text(
+                              formattedDate,
+                              style: TextStyle(
+                                color: Color(0XFF262A32),
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            );
+                          } else {
+                            return Text('Loading...');
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -165,16 +178,6 @@ class Content extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-              Container(
-                // color: Colors.grey[300],
-                padding: EdgeInsets.symmetric(horizontal: 6),
-                child: Text(
-                  'Daftar Task',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
             ],
           ),

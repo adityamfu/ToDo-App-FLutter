@@ -38,7 +38,7 @@ class TodoTaskListItem extends StatelessWidget {
             )
           ],
         ),
-        margin: EdgeInsets.all(18),
+        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         padding: EdgeInsets.all(14.0),
         child: Row(
           children: [

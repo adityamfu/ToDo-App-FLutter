@@ -54,16 +54,18 @@ class DatabaseHelper {
         onUpgrade: _onUpgrade);
     return database;
   }
-Future<void> updateCourse(Course course) async {
+
+  Future<void> updateCourse(Course course) async {
     Database db = await instance.database;
-    
+
     await db.update(
       'courses',
-      course.map(), // Mengubah objek Course menjadi Map<String, dynamic>
+      course.toMap(), // Mengubah objek Course menjadi Map<String, dynamic>
       where: 'id = ?',
       whereArgs: [course.id],
     );
   }
+
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < newVersion) {
       if (oldVersion == 2) {
@@ -86,15 +88,15 @@ Future<void> updateCourse(Course course) async {
         sks TEXT,
         room TEXT,
         lecturer TEXT,
-        weekday TEXT,
+        weekday INTEGER,
         semester INTEGER 
       )
     ''');
   }
 
-  Future<int> insertCourse(Map<String, dynamic> row) async {
+  Future<int> insertCourse(Map<String, dynamic> courseMap) async {
     Database db = await instance.database;
-    return await db.insert('courses', row);
+    return await db.insert('courses', courseMap);
   }
 
   Future<List<Map<String, dynamic>>> getAllCourses() async {
