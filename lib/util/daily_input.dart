@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '../models/test2_db.dart';
-import '../services/test2_enum.dart';
+import '../models/daily_db.dart';
+import '../models/daily_enum.dart';
 
 class LessonInputScreen extends StatefulWidget {
   @override

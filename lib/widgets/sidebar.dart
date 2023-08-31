@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:to_do/widgets/schedule_input.dart';
 import 'package:url_launcher/link.dart';
 import '../services/theme_service.dart';
-import '../ui/daily_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CSidebar extends StatelessWidget {
@@ -135,28 +133,6 @@ class CSidebar extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          ListTile(
-            leading: Icon(Icons.task_rounded),
-            title: Text('Todo   Screen'),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ScheduleScreen(),
-                ),
-              );
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.school_rounded),
-            title: Text('Daily Task Screen'),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DailyTaskScreen(),
-                ),
-              );
-            },
           ),
           Container(
             child: Center(

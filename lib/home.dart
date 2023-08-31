@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/ui/todo_screen.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/test2.dart';
+import 'widgets/sidebar.dart';
+import 'ui/daily_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

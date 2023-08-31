@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do/widgets/search_bar.dart';
-import '../services/enum.dart';
-import '../util/category.dart';
+import '../../models/todo_enum.dart';
+import '../../util/todo_category.dart';
 import 'todo_list_item.dart';
 
 class Content extends StatelessWidget {

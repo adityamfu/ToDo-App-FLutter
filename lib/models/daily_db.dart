@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../services/test2_enum.dart';
+import 'daily_enum.dart';
 
 class DatabaseHelperSche {
   static Database? _database;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/services/enum.dart';
-import 'package:to_do/widgets/todo_list_content.dart';
-import '../models/database_helper.dart';
-import '../widgets/bottomseed.dart';
-import '../widgets/task_detail.dart';
+import 'package:to_do/models/todo_enum.dart';
+import 'package:to_do/widgets/todo/todo_list_content.dart';
+import '../models/todo_db.dart';
+import '../widgets/todo/todo_input.dart';
+import '../widgets/todo/todo_list_detail.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/enum.dart';
-
+import '../models/todo_enum.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   final Function(String taskName, TaskPriority priority) addTaskCallback;
@@ -13,7 +12,7 @@ class AddTaskBottomSheet extends StatefulWidget {
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   String taskName = '';
-  TaskPriority priority = TaskPriority.Low; // Default priority
+  TaskPriority priority = TaskPriority.Low;
 
   @override
   Widget build(BuildContext context) {
