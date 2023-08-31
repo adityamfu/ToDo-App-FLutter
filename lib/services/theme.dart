@@ -9,13 +9,13 @@ const Color backGrnd = Color(0Xff8EE8C8);
 const primaryClr = barClr;
 const secondaryClr = bar2Clr;
 const Color darkGreyClr = Color(0XFF262A32);
-Color darkHeaderClr = Color(0XFF424242);
+const Color darkHeaderClr = Color(0XFF424242);
 
 class Themes {
   static final light = ThemeData(
     primaryColor: primaryClr,
     fontFamily: 'Montserrat',
-    colorScheme:const ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       background: Color(0XFF8EE8C8),
       primary: Color(0XFF262A32),
       tertiary: Color(0XFFD0DFDE),
@@ -30,7 +30,7 @@ class Themes {
   static final dark = ThemeData(
     primaryColor: secondaryClr,
     fontFamily: 'Montserrat',
-    colorScheme:const ColorScheme.dark(
+    colorScheme: const ColorScheme.dark(
       background: Color(0XFF757575),
       primary: Colors.white,
       tertiary: Color(0XFF262A32),
