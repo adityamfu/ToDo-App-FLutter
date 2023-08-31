@@ -15,7 +15,7 @@ class Themes {
   static final light = ThemeData(
     primaryColor: primaryClr,
     fontFamily: 'Montserrat',
-    colorScheme: ColorScheme.light(
+    colorScheme:const ColorScheme.light(
       background: Color(0XFF8EE8C8),
       primary: Color(0XFF262A32),
       tertiary: Color(0XFFD0DFDE),
@@ -30,7 +30,7 @@ class Themes {
   static final dark = ThemeData(
     primaryColor: secondaryClr,
     fontFamily: 'Montserrat',
-    colorScheme: ColorScheme.dark(
+    colorScheme:const ColorScheme.dark(
       background: Color(0XFF757575),
       primary: Colors.white,
       tertiary: Color(0XFF262A32),

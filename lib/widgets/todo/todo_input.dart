@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../../models/todo_enum.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
+  
   final Function(
     String taskName,
     TaskPriority priority,
@@ -12,7 +13,7 @@ class AddTaskBottomSheet extends StatefulWidget {
     String taskDescription,
   ) addTaskCallback;
 
-  AddTaskBottomSheet(this.addTaskCallback);
+ const AddTaskBottomSheet({Key?key, required this.addTaskCallback}) : super(key: key);
 
   @override
   _AddTaskBottomSheetState createState() => _AddTaskBottomSheetState();
@@ -23,8 +24,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   String taskDescription = '';
   TaskPriority priority = TaskPriority.Low; // Default priority
   DateTime startTime = DateTime.now();
-  DateTime endTime = DateTime.now()
-      .add(Duration(hours: 1)); // Set default end time 1 hour from now
+  DateTime endTime = DateTime.now().add(const Duration(hours: 1));
 
   Future<void> _selectStartTime() async {
     final DateTime? selectedStartTime = await showDatePicker(
@@ -52,6 +52,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           );
         });
       }
+      
     }
   }
 
@@ -87,14 +88,14 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('Create Your Task',
+              const Text('Create Your Task',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -114,7 +115,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text('Add',
+                  child: const Text('Add',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -123,16 +124,16 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               ),
             ],
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  offset: Offset(0, 5),
+                  color: const Color.fromARGB(255, 43, 43, 43).withOpacity(0.3),
+                  offset: const Offset(0, 5),
                   spreadRadius: 2,
                   blurRadius: 11,
                 ),
@@ -144,22 +145,22 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   taskName = value;
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Task Name...',
                 border: InputBorder.none,
               ),
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  offset: Offset(0, 5),
+                  color: const Color.fromARGB(255, 77, 75, 75).withOpacity(0.3),
+                  offset: const Offset(0, 5),
                   spreadRadius: 2,
                   blurRadius: 11,
                 ),
@@ -171,22 +172,22 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   taskDescription = value;
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Description...',
                 border: InputBorder.none,
               ),
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  offset: Offset(0, 5),
+                  color: const Color.fromARGB(255, 56, 54, 54).withOpacity(0.3),
+                  offset: const Offset(0, 5),
                   spreadRadius: 2,
                   blurRadius: 11,
                 ),
@@ -207,16 +208,16 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               }).toList(),
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  offset: Offset(0, 5),
+                  color: const Color.fromARGB(255, 49, 48, 48).withOpacity(0.3),
+                  offset: const Offset(0, 5),
                   spreadRadius: 2,
                   blurRadius: 11,
                 ),
@@ -226,7 +227,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                    '${DateFormat('EEEE, dd MMMM yyyy \nHH:mm').format(startTime)}'),
+                    DateFormat('EEEE, dd MMMM yyyy \nHH:mm').format(startTime)),
                 SizedBox(
                   width: 70,
                   height: 40,
@@ -237,7 +238,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text('Start',
+                    child: const Text('Start',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -247,16 +248,16 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  offset: Offset(0, 5),
+                  color: const Color.fromARGB(255, 59, 56, 56).withOpacity(0.3),
+                  offset: const Offset(0, 5),
                   spreadRadius: 2,
                   blurRadius: 11,
                 ),
@@ -265,8 +266,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                    '${DateFormat('EEEE, dd MMMM yyyy \nHH:mm').format(endTime)}'),
+                Text(DateFormat('EEEE, dd MMMM yyyy \nHH:mm').format(endTime)),
                 SizedBox(
                   width: 70,
                   height: 40,
@@ -277,7 +277,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Text('End',
+                    child: const Text('End',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

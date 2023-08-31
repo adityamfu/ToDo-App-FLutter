@@ -9,13 +9,13 @@ class TodoTaskListItem extends StatelessWidget {
   final VoidCallback deleteTask;
   final VoidCallback onTap;
 
-  TodoTaskListItem({
+ const TodoTaskListItem({Key?key,
     required this.todoTask,
     required this.isCompleted,
     required this.markAsDone,
     required this.deleteTask,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +31,21 @@ class TodoTaskListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(0, 104, 100, 100).withOpacity(1),
-              offset: Offset(1, 5),
+              color: const Color.fromARGB(0, 104, 100, 100).withOpacity(1),
+              offset: const Offset(1, 5),
               blurRadius: 12,
               spreadRadius: 0.6,
             )
           ],
         ),
-        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        padding: EdgeInsets.all(14.0),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.all(14.0),
         child: Row(
           children: [
             Container(
               height: isCompleted ? 80 : 20,
               width: 10,
-              margin: EdgeInsets.only(right: 14.0),
+              margin:const EdgeInsets.only(right: 14.0),
               decoration: BoxDecoration(
                 color: isCompleted
                     ? Theme.of(context).colorScheme.background
@@ -60,7 +60,7 @@ class TodoTaskListItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 250,
                         child: Text(
                           todoTask.name,
@@ -80,7 +80,7 @@ class TodoTaskListItem extends StatelessWidget {
                         width: 33,
                         decoration: BoxDecoration(
                           color: _getPriorityColor(todoTask.priority),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(0),
                             bottomLeft: Radius.circular(20),
                             topRight: Radius.circular(7),
@@ -92,7 +92,7 @@ class TodoTaskListItem extends StatelessWidget {
                   ),
                   Text(
                     'Category : ${(todoTask.category)}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w300,
                     ),
@@ -102,12 +102,12 @@ class TodoTaskListItem extends StatelessWidget {
                       children: [
                         Text(
                           'Done at: ${DateFormat('EEEE, dd MMMM yyyy HH:mm').format(todoTask.completedAt)}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.green,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 0),
+                        const SizedBox(height: 0),
                       ],
                     ),
                   SizedBox(height: isCompleted ? 10 : 25),
@@ -116,11 +116,12 @@ class TodoTaskListItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${DateFormat('EEEE, dd MMMM yyyy').format(todoTask.startTime)}',
+                          DateFormat('EEEE, dd MMMM yyyy')
+                              .format(todoTask.startTime),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
-                          '${DateFormat('HH:mm').format(todoTask.startTime)}',
+                          DateFormat('HH:mm').format(todoTask.startTime),
                         ),
                       ],
                     ),
@@ -129,16 +130,16 @@ class TodoTaskListItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${DateFormat('EEEE, dd MMMM yyyy').format(todoTask.endTime)}',
-                          style: TextStyle(
+                          DateFormat('EEEE, dd MMMM yyyy').format(todoTask.endTime),
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
-                          '${DateFormat('HH:mm').format(todoTask.endTime)}',
-                          style: TextStyle(
+                          DateFormat('HH:mm').format(todoTask.endTime),
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),
@@ -204,7 +205,7 @@ class TodoTaskListItem extends StatelessWidget {
     }
   }
 
-  String _getPriorityInitial(TaskPriority priority) {
-    return priority.toString().substring(0, 1);
-  }
+  // String _getPriorityInitial(TaskPriority priority) {
+  //   return priority.toString().substring(0, 1);
+  // }
 }

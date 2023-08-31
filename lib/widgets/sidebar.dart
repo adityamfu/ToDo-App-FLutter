@@ -33,24 +33,24 @@ class CSidebar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            child: Text(
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+            ),
+            child:const Text(
               'ToDo',
               style: TextStyle(
                 fontSize: 70,
                 fontFamily: 'Monomaniac One',
               ),
             ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-            ),
           ),
           ExpansionTile(
-            childrenPadding: EdgeInsets.only(left: 30),
+            childrenPadding:const EdgeInsets.only(left: 30),
             leading: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin:const EdgeInsets.only(top: 5),
               height: 12,
               width: 24,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0XFF262A32),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(0),
@@ -60,10 +60,10 @@ class CSidebar extends StatelessWidget {
                 ),
               ),
             ),
-            title: Text('FYI !'),
+            title:const Text('FYI !'),
             children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 25),
+                margin:const EdgeInsets.symmetric(horizontal: 25),
                 child: Column(
                   children: [
                     ListTile(
@@ -72,7 +72,7 @@ class CSidebar extends StatelessWidget {
                           Container(
                             height: 17,
                             width: 33,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                               color: Colors.red,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(0),
@@ -82,8 +82,8 @@ class CSidebar extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
-                          Text('High Priority Task'),
+                          const SizedBox(width: 10),
+                          const Text('High Priority Task'),
                         ],
                       ),
                     ),
@@ -93,7 +93,7 @@ class CSidebar extends StatelessWidget {
                           Container(
                             height: 17,
                             width: 33,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                               color: Colors.yellow,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(0),
@@ -103,8 +103,8 @@ class CSidebar extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
-                          Text('Medium Priority Task'),
+                          const SizedBox(width: 10),
+                          const Text('Medium Priority Task'),
                         ],
                       ),
                     ),
@@ -114,7 +114,7 @@ class CSidebar extends StatelessWidget {
                           Container(
                             height: 17,
                             width: 33,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                               color: Colors.blue,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(0),
@@ -124,8 +124,8 @@ class CSidebar extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
-                          Text('Low Priority Task'),
+                         const SizedBox(width: 10),
+                          const Text('Low Priority Task'),
                         ],
                       ),
                     ),
@@ -134,18 +134,17 @@ class CSidebar extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            child: Center(
+            Center(
               child: Link(
                   target: LinkTarget.blank,
                   uri: Uri.parse('https://flutter.dev'),
                   builder: (context, followLink) => ElevatedButton(
-                      onPressed: followLink, child: Text('Open Link'))),
+                      onPressed: followLink, child:const Text('Open Link'))),
             ),
-          ),
+          
           ListTile(
-            leading: Icon(Icons.date_range),
-            title: Text('Lesson'),
+            leading:const Icon(Icons.date_range),
+            title:const Text('Lesson'),
             onTap: () async {
               try {
                 await _launchUrl(
@@ -158,10 +157,10 @@ class CSidebar extends StatelessWidget {
             //   _launchUrl('www.lipsum.com');
             // },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.dark_mode_outlined),
-            title: Text('Dark Mode'),
+            leading:const Icon(Icons.dark_mode_outlined),
+            title: const Text('Dark Mode'),
             trailing: CupertinoSwitch(
               value: ThemeService().isDarkMode,
               onChanged: (value) {
@@ -175,9 +174,9 @@ class CSidebar extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.only(top: 300),
-              padding: EdgeInsets.all(16.0),
-              child: Text(
+              margin:const EdgeInsets.only(top: 300),
+              padding:const EdgeInsets.all(16.0),
+              child:const Text(
                 '© 2023 Adityamfu. Indie Develompent.',
                 style: TextStyle(
                   color: Colors.grey,
@@ -187,34 +186,6 @@ class CSidebar extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class TestWidgetScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Test Widget'),
-      ),
-      body: Center(
-        child: Text('This is a test widget.'),
-      ),
-    );
-  }
-}
-
-class AnotherWidgetScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Another Widget'),
-      ),
-      body: Center(
-        child: Text('This is another widget.'),
       ),
     );
   }

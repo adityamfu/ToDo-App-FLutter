@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import '../models/todo_enum.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
-  final Function(String taskName, TaskPriority priority) addTaskCallback;
+ final Function(String taskName, TaskPriority priority) addTaskCallback;
 
-  AddTaskBottomSheet(this.addTaskCallback);
+  const AddTaskBottomSheet({
+    Key? key,
+    required this.addTaskCallback,
+  }) : super(key: key);
 
   @override
   _AddTaskBottomSheetState createState() => _AddTaskBottomSheetState();
@@ -17,7 +20,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding:const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -27,9 +30,9 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 taskName = value;
               });
             },
-            decoration: InputDecoration(labelText: 'Tambah tugas'),
+            decoration:const InputDecoration(labelText: 'Tambah tugas'),
           ),
-          SizedBox(height: 16.0),
+         const SizedBox(height: 16.0),
           DropdownButtonFormField<TaskPriority>(
             value: priority,
             onChanged: (TaskPriority? value) {
@@ -44,14 +47,14 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
               );
             }).toList(),
           ),
-          SizedBox(height: 16.0),
+         const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () {
               if (taskName.isNotEmpty) {
                 widget.addTaskCallback(taskName, priority);
               }
             },
-            child: Text('Tambah'),
+            child:const Text('Tambah'),
           ),
         ],
       ),

@@ -18,7 +18,7 @@ class _SearchBrState extends State<SearchBr>
       child: Row(
         children: [
           if (!_isActive)
-            Column(
+           const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(

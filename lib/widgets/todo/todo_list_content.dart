@@ -13,14 +13,14 @@ class Content extends StatelessWidget {
   final Function(int) onDeleteTask;
   final Function(TodoTask) onTaskTap;
 
-  Content({
+  const Content({Key?key,
     required this.selectedCategory,
     required this.tasks,
     required this.onCategoryTap,
     required this.onMarkAsDone,
     required this.onDeleteTask,
     required this.onTaskTap,
-  });
+  }) : super(key: key);
 
   List<TodoTask> _filteredTasks() {
     if (selectedCategory == 'All') {
@@ -60,8 +60,8 @@ class Content extends StatelessWidget {
             color: Theme.of(context).colorScheme.tertiary,
             boxShadow: [
               BoxShadow(
-                color: Color.fromARGB(0, 94, 92, 92).withOpacity(0.4),
-                offset: Offset(0, 8),
+                color: const Color.fromARGB(0, 94, 92, 92).withOpacity(0.4),
+                offset: const Offset(0, 8),
                 blurRadius: 14,
               )
             ],
@@ -69,24 +69,24 @@ class Content extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(4),
                 child: SearchBr(),
               ),
               Container(
                 height: 33,
                 width: double.infinity,
-                margin: EdgeInsets.only(right: 200),
+                margin: const EdgeInsets.only(right: 200),
                 decoration: BoxDecoration(
-                  color: Color(0XFFFDE5Cf),
+                  color: const Color(0XFFFDE5Cf),
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromARGB(41, 0, 0, 0).withOpacity(0.2),
-                      offset: Offset(2, 5),
+                      color: const Color.fromARGB(41, 0, 0, 0).withOpacity(0.2),
+                      offset: const Offset(2, 5),
                       blurRadius: 7,
                     )
                   ],
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(0),
                     bottomLeft: Radius.circular(0),
                     topRight: Radius.circular(24),
@@ -99,7 +99,7 @@ class Content extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Today is : ',
                         style: TextStyle(
                           color: Color(0XFF262A32),
@@ -108,22 +108,22 @@ class Content extends StatelessWidget {
                         ),
                       ),
                       StreamBuilder<DateTime>(
-                        stream: Stream.periodic(
-                            Duration(seconds: 1), (data) => DateTime.now()),
+                        stream: Stream.periodic(const Duration(seconds: 1),
+                            (data) => DateTime.now()),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             final formattedDate = DateFormat('EEE, d MMM y')
                                 .format(snapshot.data!);
                             return Text(
                               formattedDate,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0XFF262A32),
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                               ),
                             );
                           } else {
-                            return Text('Loading...');
+                            return const Text('Loading...');
                           }
                         },
                       ),
@@ -134,44 +134,54 @@ class Content extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(left: 35),
+                    padding: const EdgeInsets.only(left: 35),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 12),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             CategoryContainer(
-                                'All', selectedCategory, onCategoryTap),
+                              category: 'All',
+                              selectedCategory: selectedCategory,
+                              onTap: onCategoryTap,
+                            ),
                             CategoryContainer(
-                                'Work', selectedCategory, onCategoryTap),
+                              category: 'Work',
+                              selectedCategory: selectedCategory,
+                              onTap: onCategoryTap,
+                            ),
                             CategoryContainer(
-                                'Private', selectedCategory, onCategoryTap),
+                              category: 'Private',
+                              selectedCategory: selectedCategory,
+                              onTap: onCategoryTap,
+                            ),
                             CategoryContainer(
-                                'Study', selectedCategory, onCategoryTap),
+                              category: 'Study',
+                              selectedCategory: selectedCategory,
+                              onTap: onCategoryTap,
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 0,
                     bottom: 0,
                     left: 10,
-                    child: Container(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: RotatedBox(
-                          quarterTurns: 3,
-                          child: Text(
-                            'Category',
-                            style: TextStyle(
-                              letterSpacing: 5,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: RotatedBox(
+                        quarterTurns: 3,
+                        child: Text(
+                          'Category',
+                          style: TextStyle(
+                            letterSpacing: 5,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

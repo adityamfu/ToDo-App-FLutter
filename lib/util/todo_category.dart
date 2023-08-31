@@ -5,7 +5,12 @@ class CategoryContainer extends StatelessWidget {
   final String selectedCategory;
   final Function(String) onTap;
 
-  CategoryContainer(this.category, this.selectedCategory, this.onTap);
+  const CategoryContainer({
+    Key? key,
+    required this.category,
+    required this.selectedCategory,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +22,14 @@ class CategoryContainer extends StatelessWidget {
         transformAlignment: Alignment.center,
         height: 164,
         width: 126,
-        padding: EdgeInsets.all(12),
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(horizontal: 10.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28.0),
           boxShadow: [
             BoxShadow(
-              color: Color.fromARGB(20, 0, 0, 0).withOpacity(0.4),
-              offset: Offset(2, 5),
+              color: const Color.fromARGB(20, 0, 0, 0).withOpacity(0.4),
+              offset: const Offset(2, 5),
               blurRadius: 7,
             )
           ],
@@ -41,13 +46,13 @@ class CategoryContainer extends StatelessWidget {
               style: TextStyle(
                 letterSpacing: 5,
                 color: selectedCategory == category
-                    ? Color(0XFF262A32)
-                    : Color(0Xff262A32),
+                    ? const Color(0XFF262A32)
+                    : const Color(0Xff262A32),
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
             ),
-            Text(
+            const Text(
               'Your Task from all category will show here',
               style: TextStyle(
                 color: Color(0Xff262A32),

@@ -5,14 +5,14 @@ import '../../models/todo_enum.dart';
 class TaskDetailDialog extends StatelessWidget {
   final TodoTask todoTask;
 
-  TaskDetailDialog({required this.todoTask});
+  const TaskDetailDialog({Key? key, required this.todoTask}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
         todoTask.name,
-        style: TextStyle(
+        style:const TextStyle(
           fontSize: 25,
           fontWeight: FontWeight.w700,
         ),
@@ -22,7 +22,7 @@ class TaskDetailDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: EdgeInsets.all(6),
+            padding:const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: _getPriorityColor(todoTask.priority),
               borderRadius: BorderRadius.circular(5),
@@ -34,9 +34,9 @@ class TaskDetailDialog extends StatelessWidget {
           Text(
             'Category: ${todoTask.category}',
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text('Description: \n${todoTask.description}'),
-          SizedBox(height: 12.0),
+         const SizedBox(height: 12.0),
           Text(
               'Created At: \n${DateFormat('EEEE, dd MMMM yyyy, HH:mm:ss').format(todoTask.createdAt)}'),
         ],
@@ -46,13 +46,13 @@ class TaskDetailDialog extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context, 'Done');
           },
-          child: Text('Done'),
+          child:const Text('Done'),
         ),
         ElevatedButton(
           onPressed: () {
             Navigator.pop(context, 'Delete');
           },
-          child: Text('Delete'),
+          child:const Text('Delete'),
         ),
       ],
     );
@@ -69,9 +69,9 @@ Color _getPriorityColor(TaskPriority priority) {
   }
 }
 
-String _getPriorityInitial(TaskPriority priority) {
-  return priority.toString().substring(0, 1);
-}
+// String _getPriorityInitial(TaskPriority priority) {
+//   return priority.toString().substring(0, 1);
+// }
 // class TaskDetailModal extends StatelessWidget {
 //   final TodoTask todoTask;
 

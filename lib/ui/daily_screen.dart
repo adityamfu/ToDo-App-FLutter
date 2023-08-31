@@ -6,6 +6,9 @@ import '../util/daily_input.dart';
 import 'dart:async';
 
 class DateScreen extends StatefulWidget {
+  const DateScreen({
+    Key? key,
+  }) : super(key: key);
   @override
   _DateScreenState createState() => _DateScreenState();
 }
@@ -124,17 +127,17 @@ class _DateScreenState extends State<DateScreen> {
                 children: [
                   Container(
                     height: 140,
-                    padding: EdgeInsets.all(11),
+                    padding: const EdgeInsets.all(11),
                     color: Theme.of(context).colorScheme.scrim,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: RotatedBox(
                         quarterTurns: 3,
                         child: Text(
-                          selectedDate == null
+                          selectedDate == ''
                               ? 'Pilih tanggal'
                               : DateFormat('MMMM').format(selectedDate),
-                          style: TextStyle(
+                          style: const TextStyle(
                             letterSpacing: 4,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -148,13 +151,13 @@ class _DateScreenState extends State<DateScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          margin: EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          margin: const EdgeInsets.only(top: 10),
                           child: Row(
                             children: [
                               Expanded(
-                                child: selectedDate == null
-                                    ? Text(
+                                child: selectedDate == ''
+                                    ? const Text(
                                         'Pilih tanggal',
                                         style: TextStyle(
                                             fontSize: 20,
@@ -165,7 +168,7 @@ class _DateScreenState extends State<DateScreen> {
                                           text: DateFormat('EEE')
                                               .format(selectedDate)
                                               .toUpperCase(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 60,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -173,7 +176,7 @@ class _DateScreenState extends State<DateScreen> {
                                             TextSpan(
                                               text:
                                                   ' ${DateFormat('dd').format(selectedDate)}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w400,
                                               ),
@@ -186,7 +189,7 @@ class _DateScreenState extends State<DateScreen> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 12),
+                          padding: const EdgeInsets.only(left: 12),
                           child: FutureBuilder<List<Lesson>>(
                             future: _getLessonListFromDatabase(
                               DateFormat('EEEE').format(selectedDate),
@@ -194,12 +197,12 @@ class _DateScreenState extends State<DateScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               } else if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
                               } else if (!snapshot.hasData ||
                                   snapshot.data!.isEmpty) {
-                                return Text('Tidak ada jadwal hari ini.');
+                                return const Text('Tidak ada jadwal hari ini.');
                               } else {
                                 List<Lesson> lessonList = snapshot.data!;
 
@@ -210,11 +213,11 @@ class _DateScreenState extends State<DateScreen> {
                                 return Column(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(bottom: 7),
+                                      margin: const EdgeInsets.only(bottom: 7),
                                       height: 10,
                                       color: Colors.black,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       height:
                                           200, // Adjust the height as needed
                                       child: ListView.builder(
@@ -223,22 +226,23 @@ class _DateScreenState extends State<DateScreen> {
                                           Lesson lesson = snapshot.data![index];
 
                                           Color timeColor = lesson.room == ''
-                                              ? Color(0xffFAFF00)
+                                              ? const Color(0xffFAFF00)
                                               : const Color(0xff262A32);
 
                                           Color fontTimeColor =
                                               lesson.room == ''
                                                   ? const Color(0xff262A32)
-                                                  : Color(0xffFFFFFF);
+                                                  : const Color(0xffFFFFFF);
 
                                           return Column(
                                             children: [
                                               if (index != 0)
-                                                Divider(), // Add a divider if not the first item
+                                                const Divider(), // Add a divider if not the first item
                                               Row(
                                                 children: [
                                                   Container(
-                                                    padding: EdgeInsets.all(4),
+                                                    padding:
+                                                        const EdgeInsets.all(4),
                                                     decoration: BoxDecoration(
                                                       color: timeColor,
                                                       borderRadius:
@@ -246,9 +250,11 @@ class _DateScreenState extends State<DateScreen> {
                                                               8),
                                                       boxShadow: [
                                                         BoxShadow(
-                                                          color: Color(0x716565)
+                                                          color: const Color(
+                                                                  0xff716565)
                                                               .withOpacity(0.6),
-                                                          offset: Offset(0, 4),
+                                                          offset: const Offset(
+                                                              0, 4),
                                                           blurRadius: 7,
                                                           spreadRadius: -2,
                                                         )
@@ -264,7 +270,7 @@ class _DateScreenState extends State<DateScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(width: 10),
+                                                  const SizedBox(width: 10),
                                                   Expanded(
                                                     child: Column(
                                                       crossAxisAlignment:
@@ -276,7 +282,8 @@ class _DateScreenState extends State<DateScreen> {
                                                           maxLines: 1,
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          style: TextStyle(
+                                                          style:
+                                                              const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w600,
                                                             fontSize: 14,
@@ -291,10 +298,11 @@ class _DateScreenState extends State<DateScreen> {
                                                       ],
                                                     ),
                                                   ),
-                                                  SizedBox(width: 10),
+                                                  const SizedBox(width: 10),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsets.all(8.0),
+                                                        const EdgeInsets.all(
+                                                            8.0),
                                                     child: Text(
                                                         lesson.sks.toString()),
                                                   ),
@@ -319,7 +327,7 @@ class _DateScreenState extends State<DateScreen> {
             ),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 1.0,
                 ),
@@ -329,16 +337,16 @@ class _DateScreenState extends State<DateScreen> {
                   return GestureDetector(
                     onTap: () => _onDateSelected(date),
                     child: Container(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(35),
                         boxShadow: [
                           BoxShadow(
-                            color: Color.fromARGB(0, 126, 123, 123)
+                            color: const Color.fromARGB(0, 126, 123, 123)
                                 .withOpacity(0.5),
-                            offset: Offset(1, 5),
+                            offset: const Offset(1, 5),
                             blurRadius: 12,
                             spreadRadius: 0.6,
                           )
@@ -359,7 +367,7 @@ class _DateScreenState extends State<DateScreen> {
                                     DateFormat('EEE')
                                         .format(upcomingDates[index])
                                         .toUpperCase(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -367,7 +375,7 @@ class _DateScreenState extends State<DateScreen> {
                                   Text(
                                     DateFormat('dd')
                                         .format(upcomingDates[index]),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -377,51 +385,51 @@ class _DateScreenState extends State<DateScreen> {
                               Column(
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(4),
+                                    padding: const EdgeInsets.all(4),
                                     decoration: BoxDecoration(
-                                      color: Color(0xffFAFF00),
+                                      color: const Color(0xffFAFF00),
                                       borderRadius: BorderRadius.circular(8),
                                       boxShadow: [
                                         BoxShadow(
-                                          color:
-                                              Color(0x716565).withOpacity(0.6),
-                                          offset: Offset(0, 4),
+                                          color: const Color(0xff716565)
+                                              .withOpacity(0.6),
+                                          offset: const Offset(0, 4),
                                           blurRadius: 7,
                                           spreadRadius: -2,
                                         )
                                       ],
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'Online',
                                       style:
                                           TextStyle(color: Color(0xff262A32)),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 8,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.all(4),
+                                    padding: const EdgeInsets.all(4),
                                     decoration: BoxDecoration(
-                                      color: Color(0xff262A32),
+                                      color: const Color(0xff262A32),
                                       borderRadius: BorderRadius.circular(8),
                                       boxShadow: [
                                         BoxShadow(
-                                          color:
-                                              Color(0x716565).withOpacity(0.6),
-                                          offset: Offset(0, 4),
+                                          color: const Color(0xff716565)
+                                              .withOpacity(0.6),
+                                          offset: const Offset(0, 4),
                                           blurRadius: 7,
                                           spreadRadius: -2,
                                         )
                                       ],
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'Offline',
                                       style:
                                           TextStyle(color: Color(0xffFFFFFF)),
                                     ),
                                   ),
-                                  Text('Sks:')
+                                  const Text('Sks:'),
                                 ],
                               ),
                             ],
@@ -431,38 +439,38 @@ class _DateScreenState extends State<DateScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               } else if (snapshot.hasError) {
                                 return Text('Error: ${snapshot.error}');
                               } else if (!snapshot.hasData ||
                                   snapshot.data!.isEmpty) {
-                                return Text('Kosong');
+                                return const Text('Kosong');
                               } else {
                                 List<Lesson> lessonList = snapshot.data!;
                                 return Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: lessonList.map((lesson) {
                                     Color timeColor = lesson.room == ''
-                                        ? Color(0xffFAFF00)
+                                        ? const Color(0xffFAFF00)
                                         : const Color(0xff262A32);
 
                                     Color fontTimeColor = lesson.room == ''
                                         ? const Color(0xff262A32)
-                                        : Color(0xffFFFFFF);
+                                        : const Color(0xffFFFFFF);
 
                                     return Column(
                                       children: [
                                         Container(
-                                          padding: EdgeInsets.all(4),
+                                          padding: const EdgeInsets.all(4),
                                           decoration: BoxDecoration(
                                             color: timeColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Color(0x716565)
+                                                color: const Color(0xff716565)
                                                     .withOpacity(0.6),
-                                                offset: Offset(0, 4),
+                                                offset: const Offset(0, 4),
                                                 blurRadius: 7,
                                                 spreadRadius: -2,
                                               )
@@ -477,7 +485,7 @@ class _DateScreenState extends State<DateScreen> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(height: 5),
+                                        const SizedBox(height: 5),
                                       ],
                                     );
                                   }).toList(),
@@ -499,9 +507,9 @@ class _DateScreenState extends State<DateScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(17),
         ),
-        backgroundColor: Color(0XFFE67E22),
+        backgroundColor: const Color(0XFFE67E22),
         onPressed: _openLessonInputScreen,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

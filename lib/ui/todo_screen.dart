@@ -6,6 +6,7 @@ import '../widgets/todo/todo_input.dart';
 import '../widgets/todo/todo_list_detail.dart';
 
 class TodoListScreen extends StatefulWidget {
+    const TodoListScreen({Key? key}) : super(key: key);
   @override
   _TodoListScreenState createState() => _TodoListScreenState();
 }
@@ -92,13 +93,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
   void showAddTaskBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: RoundedRectangleBorder(
+      shape:const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(40.0),
         ),
       ),
       builder: (BuildContext context) {
-        return AddTaskBottomSheet(addTask);
+        return AddTaskBottomSheet(addTaskCallback: addTask);
       },
     );
   }
@@ -123,12 +124,12 @@ class _TodoListScreenState extends State<TodoListScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Task Selesai'),
-          content: Text('Apakah task ini telah benar-benar selesai?'),
+          title:const Text('Task Selesai'),
+          content:const Text('Apakah task ini telah benar-benar selesai?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child:const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -137,7 +138,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
                 });
                 Navigator.pop(context);
               },
-              child: Text('Done'),
+              child: const Text('Done'),
             ),
           ],
         );
@@ -145,13 +146,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
     );
   }
 
-  List<TodoTask> _filteredTasks() {
-    if (selectedCategory == 'All') {
-      return tasks;
-    } else {
-      return tasks.where((task) => task.category == selectedCategory).toList();
-    }
-  }
+  // List<TodoTask> _filteredTasks() {
+  //   if (selectedCategory == 'All') {
+  //     return tasks;
+  //   } else {
+  //     return tasks.where((task) => task.category == selectedCategory).toList();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -175,11 +176,11 @@ class _TodoListScreenState extends State<TodoListScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(17),
         ),
-        backgroundColor: Color(0XFFE67E22),
+        backgroundColor:const Color(0XFFE67E22),
         onPressed: () {
           showAddTaskBottomSheet(context);
         },
-        child: Icon(Icons.add),
+        child:const Icon(Icons.add),
       ),
     );
   }

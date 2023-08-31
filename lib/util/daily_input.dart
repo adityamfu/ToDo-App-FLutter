@@ -3,6 +3,7 @@ import '../models/daily_db.dart';
 import '../models/daily_enum.dart';
 
 class LessonInputScreen extends StatefulWidget {
+  const LessonInputScreen({Key? key}) : super(key: key);
   @override
   _LessonInputScreenState createState() => _LessonInputScreenState();
 }
@@ -45,10 +46,10 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Input Data Mata Kuliah')),
+      appBar: AppBar(title: const Text('Input Data Mata Kuliah')),
       body: Center(
         child: ListView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           children: [
             Wrap(
               alignment: WrapAlignment.start,
@@ -63,7 +64,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                 _buildDayButton('Sunday'),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
                 final TimeOfDay? pickedTime = await showTimePicker(
@@ -79,10 +80,10 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
               },
               child: Text('Pilih Waktu: ${selectedTime.format(context)}'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               controller: courseController,
-              decoration: InputDecoration(labelText: 'Mata Kuliah'),
+              decoration: const InputDecoration(labelText: 'Mata Kuliah'),
               onChanged: (value) {
                 setState(() {
                   course = value;
@@ -91,7 +92,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
             ),
             TextField(
               controller: roomController,
-              decoration: InputDecoration(labelText: 'Ruangan'),
+              decoration: const InputDecoration(labelText: 'Ruangan'),
               onChanged: (value) {
                 setState(() {
                   room = value;
@@ -100,7 +101,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
             ),
             TextField(
               controller: sksController,
-              decoration: InputDecoration(labelText: 'SKS'),
+              decoration: const InputDecoration(labelText: 'SKS'),
               keyboardType: TextInputType.number,
               onChanged: (value) {
                 setState(() {
@@ -108,7 +109,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                 });
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
                 final Lesson newLesson = Lesson(
@@ -121,21 +122,21 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                 _addLessonToDatabase(newLesson);
                 // await _loadLessons();
               },
-              child: Text('Simpan'),
+              child: const Text('Simpan'),
             ),
-            SizedBox(height: 16),
-            Text('Lesson Data :'),
+            const SizedBox(height: 16),
+            const Text('Lesson Data :'),
             FutureBuilder<List<Lesson>>(
               future: _getLessonListFromDatabase(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (!snapshot.hasData ||
                     snapshot.data == null ||
                     snapshot.data!.isEmpty) {
-                  return Text('Belum ada data.');
+                  return const Text('Belum ada data.');
                 } else {
                   lessonList = snapshot.data!; // Assign to lessonList
                   return ListView.builder(
@@ -150,13 +151,13 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               onPressed: () {
                                 _editLesson(lesson, context);
                               },
                             ),
                             IconButton(
-                              icon: Icon(Icons.delete),
+                              icon: const Icon(Icons.delete),
                               onPressed: () {
                                 _deleteLesson(index, context);
                               },
@@ -169,20 +170,20 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
                 }
               },
             ),
-            SizedBox(height: 16),
-            Text('Daftar Data dalam Tabel:'),
+            const SizedBox(height: 16),
+            const Text('Daftar Data dalam Tabel:'),
             FutureBuilder<List<Lesson>>(
               future: _getLessonListFromDatabase(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Text('Belum ada data.');
+                  return const Text('Belum ada data.');
                 } else {
                   return DataTable(
-                    columns: [
+                    columns: const [
                       DataColumn(label: Text('Hari')),
                       DataColumn(label: Text('Waktu')),
                       DataColumn(label: Text('Sub')),
@@ -238,7 +239,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
     // int id = await DatabaseHelperSche.insertLesson(lesson);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Lesson added successfully'),
         duration: Duration(seconds: 2),
       ),
@@ -259,7 +260,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit Lesson'),
+          title: const Text('Edit Lesson'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -301,21 +302,21 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
               ),
               TextField(
                 controller: TextEditingController(text: lesson.course),
-                decoration: InputDecoration(labelText: 'Mata Kuliah'),
+                decoration: const InputDecoration(labelText: 'Mata Kuliah'),
                 onChanged: (value) {
                   lesson.course = value;
                 },
               ),
               TextField(
                 controller: TextEditingController(text: lesson.room),
-                decoration: InputDecoration(labelText: 'Ruangan'),
+                decoration: const InputDecoration(labelText: 'Ruangan'),
                 onChanged: (value) {
                   lesson.room = value;
                 },
               ),
               TextField(
                 controller: TextEditingController(text: lesson.sks.toString()),
-                decoration: InputDecoration(labelText: 'SKS'),
+                decoration: const InputDecoration(labelText: 'SKS'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   lesson.sks = int.tryParse(value) ?? 1;
@@ -328,7 +329,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
               onPressed: () {
                 Navigator.of(context).pop(lesson);
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         );
@@ -364,7 +365,7 @@ class _LessonInputScreenState extends State<LessonInputScreen> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Lesson deleted successfully'),
         duration: Duration(seconds: 2),
       ),
